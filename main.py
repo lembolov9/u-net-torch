@@ -39,7 +39,7 @@ def get_data(train_ds, bs):
     )
 
 def get_model():
-    return uNet(), optim.Adam(uNet().parameters(), lr=0.025)
+    return uNet().cuda(), optim.Adam(uNet().parameters(), lr=0.025)
 
 def loss_batch(model, loss_func, xb, yb, opt=None):
     loss = loss_func(model(xb), yb)
