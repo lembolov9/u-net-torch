@@ -1,0 +1,9 @@
+lib/
+lib64/
+include/
+bin/
+*.json
+*.cfg
+.idea
+lib64
+__pycache__/
