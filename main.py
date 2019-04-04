@@ -43,7 +43,6 @@ def get_model():
 
 def loss_batch(model, loss_func, xb, yb, opt=None):
     loss = loss_func(model(xb), yb)
-    print(loss)
     if opt is not None:
         loss.backward()
         opt.step()
@@ -57,7 +56,8 @@ def fit(epochs, model, loss_func, opt, train_dl):
     for epoch in range(epochs):
         model.train()
         for xb, yb in train_dl:
-            loss_batch(model, loss_func, xb, yb, opt)
+            t =loss_batch(model, loss_func, xb, yb, opt)
+        print(t)
 
 
 class SoftDiceLoss(nn.Module):
@@ -81,5 +81,5 @@ loss_func = SoftDiceLoss()
 train_dl = get_data(load_data('Arrays/'), 10)
 model, opt = get_model()
 
-fit(5, model, loss_func, opt, train_dl)
+fit(50, model, loss_func, opt, train_dl)
 
