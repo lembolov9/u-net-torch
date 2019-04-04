@@ -78,7 +78,7 @@ class SoftDiceLoss(nn.Module):
 
 loss_func = SoftDiceLoss()
 
-train_dl = get_data(load_data('Arrays/'), 1)
+train_dl = get_data(load_data('Arrays/'), 10)
 model, opt = get_model()
 
 fit(5, model, loss_func, opt, train_dl)
