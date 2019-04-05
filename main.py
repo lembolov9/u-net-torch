@@ -42,7 +42,7 @@ def get_model():
     return uNet().cuda(), optim.Adam(uNet().parameters(), lr=0.025)
 
 def loss_batch(model, loss_func, xb, yb, opt=None):
-    loss = loss_func(model(xb), yb)
+    loss = loss_func(model(xb.cuda()), yb)
     if opt is not None:
         loss.backward()
         opt.step()
