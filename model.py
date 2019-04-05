@@ -2,8 +2,6 @@ import torch
 from torch import nn
 
 
-
-
 class down_conv(nn.Module):
     def __init__(self, in_ch, out_ch):
         super(down_conv, self).__init__()
