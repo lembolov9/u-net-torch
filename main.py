@@ -17,13 +17,12 @@ def load_data(path):
     X_target = []
 
     for i in sorted(os.listdir(path)):
-        if (i.find('FLAIR') != -1):
-            print(i)
-            arr = np.load(path + i)
-            if (i.find('train') != -1):
-                X_input.append(arr)
-            else:
-                X_target.append(arr)
+        print(i)
+        arr = np.load(path + i)
+        if (i.find('train') != -1):
+            X_input.append(arr)
+        else:
+            X_target.append(arr)
 
     X_input = np.transpose(np.asarray([np.concatenate(X_input, axis=0)]), (1,0,2,3))
     X_target = np.transpose(np.asarray([np.concatenate(X_target, axis=0)]), (1,0,2,3))
