@@ -58,7 +58,7 @@ def fit(epochs, model, loss_func, opt, train_dl):
         print(f'epoch {epoch}')
         for i, xb in enumerate(train_dl):
             t+=loss_batch(model, loss_func, xb[0].cuda(), xb[1].cuda(), opt)
-            print(t/(i+1))
+        print(t/len(train_dl))
 
 
 class SoftDiceLoss(nn.Module):
