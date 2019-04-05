@@ -42,7 +42,7 @@ def get_model():
     return uNet().cuda(), optim.Adam(uNet().parameters(), lr=0.025)
 
 def loss_batch(model, loss_func, xb, yb, opt=None):
-    loss = loss_func(model(xb.cuda()), yb)
+    loss = loss_func(model(xb), yb)
     if opt is not None:
         loss.backward()
         opt.step()
@@ -56,7 +56,7 @@ def fit(epochs, model, loss_func, opt, train_dl):
     for epoch in range(epochs):
         model.train()
         for xb, yb in train_dl:
-            t =loss_batch(model, loss_func, xb, yb, opt)
+            t =loss_batch(model, loss_func, xb.cuda(), yb.cuda(), opt)
         print(t)
 
 
