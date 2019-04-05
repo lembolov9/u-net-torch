@@ -39,7 +39,7 @@ def get_data(train_ds, bs):
     )
 
 def get_model():
-    return uNet().cuda(), optim.Adam(uNet().parameters(), lr=0.0001)
+    return uNet(), optim.Adam(uNet().parameters(), lr=0.0001)
 
 def loss_batch(model, loss_func, xb, yb, opt=None):
     loss = loss_func(model(xb), yb)
@@ -48,16 +48,18 @@ def loss_batch(model, loss_func, xb, yb, opt=None):
         opt.step()
         opt.zero_grad()
 
-    return loss.item(), len(xb)
+    return loss.item()
 
 
 
 def fit(epochs, model, loss_func, opt, train_dl):
     for epoch in range(epochs):
         model.train()
-        for xb, yb in train_dl:
-            t =loss_batch(model, loss_func, xb.cuda(), yb.cuda(), opt)
-        print(t)
+        t=0
+        print(f'epoch {epoch}')
+        for i, xb in enumerate(train_dl):
+            t+=loss_batch(model, loss_func, xb[0], xb[1], opt)
+            print(t/(i+1))
 
 
 class SoftDiceLoss(nn.Module):
@@ -78,7 +80,7 @@ class SoftDiceLoss(nn.Module):
 
 loss_func = SoftDiceLoss()
 
-train_dl = get_data(load_data('Arrays/'), 10)
+train_dl = get_data(load_data('Arrays/'), 1)
 model, opt = get_model()
 
 fit(50, model, loss_func, opt, train_dl)
